@@ -38,6 +38,12 @@ def play():
 
     time.sleep(2)
 
+def quit():
+    global running
+
+    print('\nPeace out!')
+    running = False
+
 def main():
     global running
 
@@ -59,11 +65,14 @@ def main():
             
             time.sleep(4)
         elif menu_input['index'] == 3:
-            print('\nPeace out!')
-            running = False
+            quit()
         else:
             print('\nInvalid input! Please try again\n')
             time.sleep(0.5)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('')
+        quit()
