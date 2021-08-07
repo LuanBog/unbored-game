@@ -1,0 +1,4 @@
+[/] When player presses CTRL + C (to quit), create a neater way of leaving
+[/] Create a better way to load games, so we're able to put the games in a seperate folder
+[] Add tictactoe game
+[] Add a scoring system
