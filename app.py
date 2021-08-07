@@ -1,9 +1,9 @@
 import time
 import random
-import games
+import game_loader
 from form import Form
 
-games = [games.Hangman, games.Rps]
+games = game_loader.load()
 
 running = True
 
