@@ -1,7 +1,42 @@
 import time
+import random
+import games
 from form import Form
 
+games = [games.Hangman, games.Rps]
+
 running = True
+
+def play():
+    games_title = [game.title for game in games]
+    games_title.append('Random')
+
+    game_menu = Form('Games', games_title)
+    game_menu_input = game_menu.ask()
+
+    game_chosen = None
+
+    if game_menu_input['choice'] == 'Random':
+        game_chosen = random.choice(games)()
+    else:
+        game_chosen = games[game_menu_input['index'] - 1]()
+
+    print('')
+    print('----------{}----------'.format(game_chosen.title))
+    print('')
+    game_chosen.run()
+    print('')
+    print('----------' + '-' * len(game_chosen.title) + '----------')
+    print('')
+
+    time.sleep(2)
+
+    if game_chosen.won:
+        print('Wow you won, GG\'s!\n')
+    else:
+        print('Awww, you did your best\n')
+
+    time.sleep(2)
 
 def main():
     global running
@@ -13,17 +48,17 @@ def main():
     
     while running:
         menu = Form('Menu', ['Play', 'About', 'Quit'])
-        user_input = menu.ask()
+        menu_input = menu.ask()
 
-        if user_input == 1:
-            pass
-        elif user_input == 2:
+        if menu_input['index'] == 1:
+            play()
+        elif menu_input['index'] == 2:
             print('\nThis is a game that makes you unbored.')
             print('Reason why this is made is because the developer was bored')
             print('because of no wifi.\n')
             
             time.sleep(4)
-        elif user_input == 3:
+        elif menu_input['index'] == 3:
             print('\nPeace out!')
             running = False
         else:
