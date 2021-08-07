@@ -148,8 +148,13 @@ class Rps(Game):
             opposition_input = random.choice(['r', 'p', 's'])
             player_input = input('[r]ock [p]aper [s]cissors?: ').lower()
 
+            if player_input != 'r' and player_input != 'p' and player_input != 's':
+                print('\nThat is invalid input!\n')
+                continue
+
             result = self.result(player_input, opposition_input)
 
+            print('')
             if result == 'player':
                 print('{} beats {}, congrats!'.format(self.prettify(player_input), self.prettify(opposition_input)))
                 Game.won = True
@@ -160,3 +165,4 @@ class Rps(Game):
                 break
             else:
                 print('{} can\'t beat itself. It\'s a tie, try again!'.format(self.prettify(player_input)))
+            print('')
