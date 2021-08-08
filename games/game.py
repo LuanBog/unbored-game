@@ -1,12 +1,21 @@
 class Game:
     title = 'Game'
-    won = False
 
-    # Main function to call
-    # This should be in a while True loop. If player won, set Game.won to True and vice versa, then break to break out of the while loop
-    # Example run function:
+    def __init__(self):
+        self.running = True
+        self.won = False
+
+    def win(self):
+        self.running = False
+        self.won = True
+
+    def lose(self):
+        self.running = False
+        self.won = False
+
+    # Purpose: Should always start with "while self.running:". If the player wins, call self.win() and self.lose() if they lose
+    # Example:
     def run(self):
-        while True:
+        while self.running:
             if 1 == 1:
-                Game.won = True
-                break
+                self.win()

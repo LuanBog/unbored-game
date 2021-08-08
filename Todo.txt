@@ -1,4 +1,9 @@
 [/] When player presses CTRL + C (to quit), create a neater way of leaving
 [/] Create a better way to load games, so we're able to put the games in a seperate folder
+[/] Add a scoring system
+[] Add players
+[] Improve scoring system
+  [] Only add the score to the specific player playing
 [] Add tictactoe game
-[] Add a scoring system
+
+Ctrl + C cancels the current task instead of stopping the whole application?

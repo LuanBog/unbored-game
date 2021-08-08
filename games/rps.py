@@ -4,6 +4,9 @@ import random
 class Rps(Game):
     title = 'Rock Paper Scissors'
 
+    def __init__(self):
+        super().__init__()
+
     def result(self, player, opposition):
         if (player == 'r' and opposition == 's') or (player == 's' and opposition == 'p') or (player == 'p' and opposition == 'r'):
             return 'player'
@@ -21,7 +24,7 @@ class Rps(Game):
             return 'scissors'
 
     def run(self):
-        while True:
+        while self.running:
             opposition_input = random.choice(['r', 'p', 's'])
             player_input = input('[r]ock [p]aper [s]cissors?: ').lower()
 
@@ -34,12 +37,10 @@ class Rps(Game):
             print('')
             if result == 'player':
                 print('{} beats {}, congrats!'.format(self.prettify(player_input), self.prettify(opposition_input)))
-                Game.won = True
-                break
+                self.win()
             elif result == 'opposition':
-                print('{} can\'t beat {}, congrats!'.format(self.prettify(player_input), self.prettify(opposition_input)))
-                Game.won = False
-                break
+                print('{} can\'t beat {}, you lost!'.format(self.prettify(player_input), self.prettify(opposition_input)))
+                self.lose()
             else:
                 print('{} can\'t beat itself. It\'s a tie, try again!'.format(self.prettify(player_input)))
             print('')

@@ -1,15 +1,26 @@
 import time
 import random
+import pickle
 import game_loader
 from form import Form
 
 games = game_loader.load()
 
+score = {
+    'wins': 0,
+    'loses': 0
+}
+
 running = True
 
 def play():
+    global score
+
     games_title = [game.title for game in games]
     games_title.append('Random')
+
+    print('')
+    print('Wins: {}, Loses: {}'.format(score['wins'], score['loses']))
 
     game_menu = Form('Games', games_title)
     game_menu_input = game_menu.ask()
@@ -33,8 +44,10 @@ def play():
 
     if game_chosen.won:
         print('Wow you won, GG\'s!\n')
+        score['wins'] += 1
     else:
-        print('Awww, you did your best\n')
+        print('You lost, but you did your best\n')
+        score['loses'] += 1
 
     time.sleep(2)
 
@@ -42,7 +55,23 @@ def quit():
     global running
 
     print('\nPeace out!')
+    save_save()
     running = False
+
+def save_save():
+    with open('save.db', 'wb') as save:
+        pickle.dump(score, save)
+
+def load_save():
+    try:
+        with open('save.db', 'rb') as save:
+            return pickle.load(save)
+    except FileNotFoundError:
+        print('\nSave file isn\'t found! Creating...\n')
+        save_save()
+
+        with open('save.db', 'rb') as save:
+            return pickle.load(save)
 
 def main():
     global running
@@ -71,6 +100,11 @@ def main():
             time.sleep(0.5)
 
 if __name__ == '__main__':
+    save = load_save()
+    
+    if save:
+        score = save
+
     try:
         main()
     except KeyboardInterrupt:

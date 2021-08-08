@@ -65,6 +65,7 @@ class Hangman(Game):
     words = ['red', 'black', 'furniture', 'apple', 'kingdom', 'prince', 'milk', 'chair', 'doctor', 'minecraft', 'terraria', 'utility', 'kick', 'mouse', 'joke', 'dumb', 'cool', 'pro', 'roblox', 'fabric', 'discord', 'coco', 'castle', 'movie', 'howl', 'hat']
 
     def __init__(self):
+        super().__init__()
         self.word_chosen = random.choice(Hangman.words)
         self.tries = 0
         self.guess_result = '_ ' * len(self.word_chosen)
@@ -95,17 +96,15 @@ class Hangman(Game):
         return result.strip()
 
     def run(self):
-        while True:
+        while self.running:
             self.display_progress()
 
             if self.tries == len(Hangman.hangman_pictures) - 1:
                 print('You lost! You let the man die. The word was \"{}\"'.format(self.word_chosen))
-                Game.won = False
-                break
+                self.lose()
 
             if not '_' in self.guess_result:
-                Game.won = True
-                break
+                self.win()
 
             letter_input = input('Letter that you think that\'s in the word: ').lower()
 
