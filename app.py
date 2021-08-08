@@ -18,6 +18,7 @@ def play():
 
     games_title = [game.title for game in games]
     games_title.append('Random')
+    games_title.append('Back')
 
     print('')
     print('Wins: {}, Loses: {}'.format(score['wins'], score['loses']))
@@ -29,6 +30,8 @@ def play():
 
     if game_menu_input['choice'] == 'Random':
         game_chosen = random.choice(games)()
+    elif game_menu_input['choice'] == 'Back':
+        return
     else:
         game_chosen = games[game_menu_input['index'] - 1]()
 
