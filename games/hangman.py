@@ -102,9 +102,12 @@ class Hangman(Game):
             if self.tries == len(Hangman.hangman_pictures) - 1:
                 print('You lost! You let the man die. The word was \"{}\"'.format(self.word_chosen))
                 self.lose()
+                break
 
             if not '_' in self.guess_result:
+                print('You won! You set the man free.')
                 self.win()
+                break
 
             letter_input = input('Letter that you think that\'s in the word: ').lower()
 

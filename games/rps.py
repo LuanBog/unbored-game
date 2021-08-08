@@ -38,9 +38,11 @@ class Rps(Game):
             if result == 'player':
                 print('{} beats {}, congrats!'.format(self.prettify(player_input), self.prettify(opposition_input)))
                 self.win()
+                break
             elif result == 'opposition':
                 print('{} can\'t beat {}, you lost!'.format(self.prettify(player_input), self.prettify(opposition_input)))
                 self.lose()
+                break
             else:
                 print('{} can\'t beat itself. It\'s a tie, try again!'.format(self.prettify(player_input)))
             print('')
