@@ -36,11 +36,11 @@ def play():
     game_chosen = None
 
     if game_menu_input['choice'] == 'Random':
-        game_chosen = random.choice(games)()
+        game_chosen = random.choice(games)(current_player)
     elif game_menu_input['choice'] == 'Back':
         return
     else:
-        game_chosen = games[game_menu_input['index'] - 1]()
+        game_chosen = games[game_menu_input['index'] - 1](current_player)
 
     print('')
     print('----------{}----------'.format(game_chosen.title))
@@ -54,10 +54,8 @@ def play():
 
     if game_chosen.won:
         print('Wow you won, GG\'s!\n')
-        current_player.score['wins'] += 1
     else:
         print('You lost, but you did your best\n')
-        current_player.score['loses'] += 1
 
     # update_players_score()
 

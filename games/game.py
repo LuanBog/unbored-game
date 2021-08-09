@@ -1,15 +1,22 @@
 class Game:
     title = 'Game'
 
-    def __init__(self):
+    def __init__(self, player):
         self.running = True
         self.won = False
+        self.player = player
 
     def win(self):
+        if self.player:
+            self.player.score['wins'] += 1
+
         self.running = False
         self.won = True
 
     def lose(self):
+        if self.player:
+            self.player.score['loses'] += 1
+
         self.running = False
         self.won = False
 

@@ -3,8 +3,8 @@
 [/] Add a scoring system
 [/] Add go back option in menu
 [] Add players
-  [] Default "Guest" player (This player doesn't get saved in save.db)
-  [] Update score in the game's win() and lose() function instead
+  [/] Default "Guest" player (This player doesn't get saved in save.db)
+  [/] Update score in the game's win() and lose() function instead
   [] Simple adding players system
   [] Register
   [] Login

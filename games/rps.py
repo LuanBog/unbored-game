@@ -4,8 +4,8 @@ import random
 class Rps(Game):
     title = 'Rock Paper Scissors'
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, player):
+        super().__init__(player)
 
     def result(self, player, opposition):
         if (player == 'r' and opposition == 's') or (player == 's' and opposition == 'p') or (player == 'p' and opposition == 'r'):

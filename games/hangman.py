@@ -64,8 +64,8 @@ class Hangman(Game):
 
     words = ['red', 'black', 'furniture', 'apple', 'kingdom', 'prince', 'milk', 'chair', 'doctor', 'minecraft', 'terraria', 'utility', 'kick', 'mouse', 'joke', 'dumb', 'cool', 'pro', 'roblox', 'fabric', 'discord', 'coco', 'castle', 'movie', 'howl', 'hat']
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, player):
+        super().__init__(player)
         self.word_chosen = random.choice(Hangman.words)
         self.tries = 0
         self.guess_result = '_ ' * len(self.word_chosen)
