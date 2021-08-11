@@ -12,14 +12,6 @@ guest = Player('Guest')
 current_player = guest
 players = [] # Guest will automatically added here with load_save()
 
-# This function is used to update the score when the current_player's score is updated. Because it doesn't naturally update when you update current_player's score
-# def update_players_score():
-#     global players
-
-#     for player in players:
-#         if player.name == current_player.name:
-#             player.score = current_player.score
-
 def play():
     global guest, current_player
 
@@ -57,8 +49,6 @@ def play():
     else:
         print('You lost, but you did your best\n')
 
-    # update_players_score()
-
     time.sleep(2)
 
 def create_player():
@@ -94,6 +84,34 @@ def create_player():
         print('-----------------------------------')
         
         break
+
+def switch_player():
+    global current_player
+
+    choices = []
+
+    for player in players:
+        choices.append(player.name)
+
+    choices.append('Back')
+
+    switch_player_menu = Form('Switch Player', choices)
+    switch_player_menu_input = switch_player_menu.ask()
+
+    if switch_player_menu_input['choice'] == 'Back':
+        return
+
+    player_chosen = None
+
+    for player in players:
+        if player.name == switch_player_menu_input['choice']:
+            player_chosen = player
+            break
+
+    current_player = player_chosen
+    print('Switched to {}\n'.format(current_player.name))
+
+    time.sleep(0.5)
 
 def quit():
     global running
@@ -147,7 +165,7 @@ def main():
     while running:
         print('Player: {}'.format(current_player.name))
 
-        menu = Form('Menu', ['Play', 'Create Player', 'About', 'Quit'])
+        menu = Form('Menu', ['Play', 'Create Player', 'Switch Player', 'About', 'Quit'])
         menu_input = menu.ask()
         index = menu_input['index']
 
@@ -156,12 +174,14 @@ def main():
         elif index == 2:
             create_player()
         elif index == 3:
+            switch_player()
+        elif index == 4:
             print('\nThis is a game that makes you unbored.')
             print('Reason why this is made is because the developer was bored')
             print('because of no wifi.\n')
             
             time.sleep(4)
-        elif index == 4:
+        elif index == 5:
             quit()
         else:
             print('\nInvalid input! Please try again\n')
