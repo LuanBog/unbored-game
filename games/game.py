@@ -26,9 +26,6 @@ class Game:
 
     # Purpose: Should always start with "while self.running:". If the player wins, call self.win() and self.lose() if they lose, followed with break
     def run(self):
-        # while self.running:
-        #     if 1 == 1:
-        #         self.win()
         pass
 
 ##### EXAMPLE #####
