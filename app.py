@@ -99,6 +99,7 @@ def switch_player():
     switch_player_menu_input = switch_player_menu.ask()
 
     if switch_player_menu_input['choice'] == 'Back':
+        print('')
         return
 
     player_chosen = None
@@ -110,6 +111,42 @@ def switch_player():
 
     current_player = player_chosen
     print('Switched to {}\n'.format(current_player.name))
+
+    time.sleep(0.5)
+
+def delete_player():
+    global current_player
+
+    choices = []
+
+    for player in players:
+        if player.name == 'Guest':
+            continue
+
+        choices.append(player.name)
+
+    choices.append('Back')
+
+    delete_player_menu = Form('Delete Player', choices)
+    delete_player_menu_input = delete_player_menu.ask()
+
+    if delete_player_menu_input['choice'] == 'Back':
+        print('')
+        return
+
+    for player in players:
+        if player.name == delete_player_menu_input['choice']:
+            are_you_sure = input('Are you sure you want to delete "{}". All progress will be lost! (y/n): '.format(player.name)).lower()
+
+            if are_you_sure == 'y' or are_you_sure == 'yes':
+                print('Deleting player...\n')
+                players.remove(player)
+
+                current_player = guest
+
+                break
+
+    save_save(log=False)
 
     time.sleep(0.5)
 
@@ -165,7 +202,7 @@ def main():
     while running:
         print('Player: {}'.format(current_player.name))
 
-        menu = Form('Menu', ['Play', 'Create Player', 'Switch Player', 'About', 'Quit'])
+        menu = Form('Menu', ['Play', 'Create Player', 'Switch Player', 'Delete Player', 'About', 'Quit'])
         menu_input = menu.ask()
         index = menu_input['index']
 
@@ -176,12 +213,14 @@ def main():
         elif index == 3:
             switch_player()
         elif index == 4:
+            delete_player()
+        elif index == 5:
             print('\nThis is a game that makes you unbored.')
             print('Reason why this is made is because the developer was bored')
             print('because of no wifi.\n')
             
             time.sleep(4)
-        elif index == 5:
+        elif index == 6:
             quit()
         else:
             print('\nInvalid input! Please try again\n')
