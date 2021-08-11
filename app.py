@@ -61,26 +61,62 @@ def play():
 
     time.sleep(2)
 
+def create_player():
+    global current_player, players
+
+    def repeated(name):
+        for player in players:
+            if player.name == name:
+                return True
+        
+        return False
+
+    print('')
+    print('----------Player Creation----------')
+
+    while True:
+        name = input('Name: ')
+
+        # Checks so name doesn't get repeated
+        if repeated(name):
+            print('That name unfortunately exists already. Please choose another!')
+            continue
+
+        print('Creating...')
+
+        new_player = Player(name)
+
+        current_player = new_player
+        players.append(new_player)
+
+        save_save(log=False)
+
+        print('-----------------------------------')
+        
+        break
+
 def quit():
     global running
 
     print('')
     save_save()
     print('Peace out!')
+
     running = False
 
-def save_save():
+def save_save(log = True):
     global players
 
-    print('Saving...')
+    if log:
+        print('Saving...')
 
-    with open('save.db', 'wb') as save:
+    with open('save.db', 'wb') as f:
         # Removes guest from players, so it doesn't get saved
         for player in players:
             if player.name == 'Guest':
                 players.remove(player)
 
-        pickle.dump(players, save)
+        pickle.dump(players, f)
 
 def load_save():
     global players
@@ -88,11 +124,11 @@ def load_save():
     save = None
 
     try:
-        with open('save.db', 'rb') as save:
-            save = pickle.load(save)
+        with open('save.db', 'rb') as f:
+            save = pickle.load(f)
     except FileNotFoundError:
         print('\nSave file isn\'t found! Creating...\n')
-        save_save()
+        save_save(log=False)
 
         with open('save.db', 'rb') as save:
             save = pickle.load(save)
@@ -111,18 +147,21 @@ def main():
     while running:
         print('Player: {}'.format(current_player.name))
 
-        menu = Form('Menu', ['Play', 'About', 'Quit'])
+        menu = Form('Menu', ['Play', 'Create Player', 'About', 'Quit'])
         menu_input = menu.ask()
+        index = menu_input['index']
 
-        if menu_input['index'] == 1:
+        if index == 1:
             play()
-        elif menu_input['index'] == 2:
+        elif index == 2:
+            create_player()
+        elif index == 3:
             print('\nThis is a game that makes you unbored.')
             print('Reason why this is made is because the developer was bored')
             print('because of no wifi.\n')
             
             time.sleep(4)
-        elif menu_input['index'] == 3:
+        elif index == 4:
             quit()
         else:
             print('\nInvalid input! Please try again\n')
