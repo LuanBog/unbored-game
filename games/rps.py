@@ -48,6 +48,6 @@ class Rps(Game):
             print('')
             
 if __name__ == '__main__':
-    game = Rps()
+    game = Rps(None)
     game.run()
     

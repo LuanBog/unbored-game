@@ -120,5 +120,5 @@ class Hangman(Game):
                 self.tries += 1
 
 if __name__ == '__main__':
-    game = Hangman()
+    game = Hangman(None)
     game.run()
