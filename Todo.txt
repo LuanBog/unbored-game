@@ -6,7 +6,7 @@
   [/] Default "Guest" player (This player doesn't get saved in save.db)
   [/] Update score in the game's win() and lose() function instead
   [/] Creating players
-  [] Switching players
+  [/] Switching players
   [] Delete player
 [] Improve scoring system
   [] Only add the score to the specific player playing
