@@ -30,6 +30,8 @@ class Game:
 
 ##### EXAMPLE #####
 class Example_Game(Game):
+    title = 'Example Game'
+
     def __init__(self, player):
         super().__init__(player)
 
