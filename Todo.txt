@@ -8,6 +8,18 @@
   [/] Creating players
   [/] Switching players
   [/] Delete player
-[] Add tictactoe game
+[] Add games
+  [/] Tictactoe game
+    [/] Add the main game
+    [/] Competing against another player
+    [/] Add a draw in the game (Wow I'm stupid for forgetting this is a thing in tictactoe)
+    [/] Add bot
+  [] Improve hangman
+    [] Add categories
+[] Add colors
+  [] Menus
+  [] Tictactoe
+  [] Hangman
+  [] Rock paper scissors
 
 Ctrl + C cancels the current task instead of stopping the whole application?

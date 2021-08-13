@@ -28,23 +28,30 @@ def play():
     game_chosen = None
 
     if game_menu_input['choice'] == 'Random':
-        game_chosen = random.choice(games)(current_player)
+        game_chosen = random.choice(games)
     elif game_menu_input['choice'] == 'Back':
         return
     else:
-        game_chosen = games[game_menu_input['index'] - 1](current_player)
+        game_chosen = games[game_menu_input['index'] - 1]
+
+    game = None
+
+    if game_chosen.title == 'Tic-Tac-Toe':
+        game = game_chosen(current_player, players)
+    else:
+        game = game_chosen(current_player)
 
     print('')
-    print('----------{}----------'.format(game_chosen.title))
+    print('----------{}----------'.format(game.title))
     print('')
-    game_chosen.run()
+    game.run()
     print('')
-    print('----------' + '-' * len(game_chosen.title) + '----------')
+    print('----------' + '-' * len(game.title) + '----------')
     print('')
 
     time.sleep(2)
 
-    if game_chosen.won:
+    if game.won:
         print('Wow you won, GG\'s!\n')
     else:
         print('You lost, but you did your best\n')
