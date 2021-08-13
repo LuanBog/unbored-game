@@ -1,25 +1,7 @@
-[/] When player presses CTRL + C (to quit), create a neater way of leaving
-[/] Create a better way to load games, so we're able to put the games in a seperate folder
-[/] Add a scoring system
-[/] Add go back option in menu
-[/] Add players
-  [/] Default "Guest" player (This player doesn't get saved in save.db)
-  [/] Update score in the game's win() and lose() function instead
-  [/] Creating players
-  [/] Switching players
-  [/] Delete player
-[] Add games
-  [/] Tictactoe game
-    [/] Add the main game
-    [/] Competing against another player
-    [/] Add a draw in the game (Wow I'm stupid for forgetting this is a thing in tictactoe)
-    [/] Add bot
-  [] Improve hangman
-    [] Add categories
+[] Add categories to Hangman
 [] Add colors
   [] Menus
   [] Tictactoe
   [] Hangman
   [] Rock paper scissors
-
-Ctrl + C cancels the current task instead of stopping the whole application?
+[] Ctrl + C backs instead of stopping the whole application
