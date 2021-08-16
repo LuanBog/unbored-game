@@ -1,5 +1,10 @@
 from game import Game
+import sys
 import random
+import json
+
+sys.path.insert(1, '../')
+from form import Form
 
 class Hangman(Game):
     title = 'Hangman'
@@ -62,25 +67,48 @@ class Hangman(Game):
        / \  |
     ===========''']
 
-    words = ['red', 'black', 'furniture', 'apple', 'kingdom', 'prince', 'milk', 'chair', 'doctor', 'minecraft', 'terraria', 'utility', 'kick', 'mouse', 'joke', 'dumb', 'cool', 'pro', 'roblox', 'fabric', 'discord', 'coco', 'castle', 'movie', 'howl', 'hat']
-
     def __init__(self, player):
         super().__init__(player)
-        self.word_chosen = random.choice(Hangman.words)
+        self.word_chosen = ''
+        self.guess_result = ''
+        self.category = None
         self.tries = 0
-        self.guess_result = '_ ' * len(self.word_chosen)
-        self.guess_result = self.guess_result.strip()
 
     def display_progress(self):
         print(Hangman.hangman_pictures[self.tries])
         print('')
+        print('Category: {}'.format(self.category))
         print('Tries: {}/{}'.format(self.tries, len(Hangman.hangman_pictures) - 1))
         print('')
         print(self.guess_result)
         print('')
 
     def change_letter(self, word, letter, position):
-        word = word.strip().split()
+        # Possible refactor
+        def custom_split(word):
+            result = []
+            words = []
+
+            word = word.split('  ')
+
+            for element in word:
+                words.append(element.split())
+
+            for element in words:
+                element.insert(len(element), ' ')
+
+            for i in words:
+                for v in i:
+                    result.append(v)
+
+            if result[-1] == ' ':
+                del result[-1]
+
+            return result
+
+        word = custom_split(word.strip())
+
+        print(word)
 
         result = ''
 
@@ -90,13 +118,57 @@ class Hangman(Game):
                     result = result + letter + ' '
                 else:
                     result = result + '_ '
+            elif lett == ' ':
+                result = result + ' '
             else:
                 result = result + lett + ' '
 
         return result.strip()
 
+    def ask_category(self):
+        data = None
+
+        file = './others/hangman_words.json' if __name__ == '__main__' else './games/others/hangman_words.json'
+        with open(file) as f:
+            data = json.load(f)
+
+        choices = [category.title() for category in list(data.keys())]
+        choices.append('Random')
+
+        categories_menu = Form('Categories', choices)
+        categories_menu_input = categories_menu.ask()
+
+        category_chosen = None
+
+        # Possible refactor
+        if categories_menu_input['choice'] == 'Random':
+            random_choice = random.choice(list(data.keys()))
+            
+            for category in list(data.keys()):
+                if random_choice == category:
+                    category_chosen = data[category]
+                    break
+        else:
+            for category in list(data.keys()):
+                if categories_menu_input['choice'].lower() == category:
+                    category_chosen = data[category]
+                    break
+
+        self.category = categories_menu_input['choice']
+        self.word_chosen = random.choice(category_chosen)
+
+        for letter in self.word_chosen:
+            if letter != ' ':
+                self.guess_result = self.guess_result + '_ '
+            else:
+                self.guess_result = self.guess_result + ' '
+
     def run(self):
         while self.running:
+            # Asks for category
+            while not self.word_chosen:
+                self.ask_category()
+
             self.display_progress()
 
             if self.tries == len(Hangman.hangman_pictures) - 1:

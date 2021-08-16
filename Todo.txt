@@ -1,4 +1,4 @@
-[] Add categories to Hangman
+[/] Add categories to Hangman
 [] Add colors
   [] Menus
   [] Tictactoe

@@ -1,0 +1,48 @@
+{
+    "colors": [
+        "black",
+        "blue",        
+        "brown",        
+        "red",
+        "purple",        
+        "gray",        
+        "green",        
+        "pink",        
+        "magenta",
+        "white" 
+    ],
+    "occupation": [
+        "police",
+        "doctor",
+        "fireman",
+        "programmer",
+        "engineer",
+        "teacher",
+        "manager",
+        "cook",
+        "cashier",
+        "mechanic",
+        "builder",
+        "maid",
+        "driver",
+        "nurse"
+    ],
+    "games": [
+        "minecraft",
+        "roblox",
+        "crossfire",
+        "mobile legends",
+        "fortnite",
+        "players unknown battleground",
+        "osu",
+        "call of duty",
+        "grand theft auto",
+        "team fortress 2",
+        "apex legends",
+        "pac-man",
+        "hollow knight",
+        "doki doki literature club",
+        "legends of zelda",
+        "super mario"
+    ]
+}
