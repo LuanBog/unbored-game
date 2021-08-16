@@ -122,7 +122,7 @@ def switch_player():
     time.sleep(0.5)
 
 def delete_player():
-    global current_player
+    global players, current_player
 
     choices = []
 
