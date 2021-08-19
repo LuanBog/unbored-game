@@ -2,8 +2,12 @@ import time
 import random
 import pickle
 import game_loader
+import colorama
+from colorama import Fore
 from form import Form
 from player import Player
+
+colorama.init(autoreset=True)
 
 games = game_loader.load()
 running = True
@@ -162,7 +166,7 @@ def quit():
 
     print('')
     save_save()
-    print('Peace out!')
+    print(f'{Fore.BLUE}Peace out!')
 
     running = False
 
@@ -170,7 +174,7 @@ def save_save(log = True):
     global players
 
     if log:
-        print('Saving...')
+        print(f'{Fore.YELLOW}Saving...')
 
     with open('save.db', 'wb') as f:
         # Removes guest from players, so it doesn't get saved
@@ -201,9 +205,9 @@ def load_save():
 def main():
     global running
 
-    print('\nAre you bored and ready to play?')
+    print(f'\nAre you {Fore.RED}bored{Fore.WHITE} and {Fore.GREEN}ready to play{Fore.WHITE}?')
     time.sleep(2)
-    print('\nI welcome you to Unbored Game!\nA game that makes you unbored\n')
+    print(f'\nI welcome you to {Fore.BLUE}Un{Fore.RED}bored Game{Fore.WHITE}!\nA game that makes you {Fore.BLUE}un{Fore.RED}bored\n')
     time.sleep(2)
     
     while running:

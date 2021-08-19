@@ -1,3 +1,8 @@
+import colorama
+from colorama import Fore
+
+colorama.init(autoreset=True)
+
 class Form:
     invalid = {
         'index': 0,
@@ -11,15 +16,15 @@ class Form:
     def ask(self):
         choices_with_index = []
 
-        print('----------{}----------'.format(self.title))
+        print(f'{Fore.YELLOW}----------{Fore.GREEN}{self.title}{Fore.YELLOW}----------')
         for index, choice in enumerate(self.choices):
             choices_with_index.append({
                 'index': index + 1,
                 'choice': choice,
             })
 
-            print('{}) {}'.format(index + 1, choice))
-        print('----------' + '-' * len(self.title) + '----------')
+            print(f'{Fore.WHITE}{index + 1}) {Fore.BLUE}{choice}')
+        print(Fore.YELLOW + '----------' + '-' * len(self.title) + '----------')
         
         try:
             user_input = int(input('> '))
