@@ -2,6 +2,10 @@ from game import Game
 import sys
 import random
 import json
+import colorama
+from colorama import Fore
+
+colorama.init(autoreset=True)
 
 sys.path.insert(1, '../')
 from form import Form
@@ -77,8 +81,8 @@ class Hangman(Game):
     def display_progress(self):
         print(Hangman.hangman_pictures[self.tries])
         print('')
-        print('Category: {}'.format(self.category))
-        print('Tries: {}/{}'.format(self.tries, len(Hangman.hangman_pictures) - 1))
+        print(f'Category: {Fore.YELLOW}{self.category}')
+        print(f'Tries: {Fore.GREEN}{self.tries}{Fore.WHITE}/{Fore.RED}{len(Hangman.hangman_pictures) - 1}')
         print('')
         print(self.guess_result)
         print('')
@@ -170,12 +174,12 @@ class Hangman(Game):
             self.display_progress()
 
             if self.tries == len(Hangman.hangman_pictures) - 1:
-                print('You lost! You let the man die. The word was \"{}\"'.format(self.word_chosen))
+                print(f'{Fore.RED}You lost! You let the man die. The word was {Fore.YELLOW}\"{self.word_chosen}\"')
                 self.lose()
                 break
 
             if not '_' in self.guess_result:
-                print('You won! You set the man free.')
+                print(f'{Fore.GREEN}You won! You set the man free.')
                 self.win()
                 break
 
@@ -186,7 +190,7 @@ class Hangman(Game):
                     if letter == letter_input:
                         self.guess_result = self.change_letter(self.guess_result, letter_input, index)
             else:
-                print('It\'s not in there!')
+                print(f'{Fore.RED}It\'s not in there!')
                 self.tries += 1
 
 if __name__ == '__main__':

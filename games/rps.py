@@ -1,5 +1,9 @@
 from game import Game
 import random
+import colorama
+from colorama import Fore
+
+colorama.init(autoreset=True)
 
 class Rps(Game):
     title = 'Rock Paper Scissors'
@@ -29,22 +33,22 @@ class Rps(Game):
             player_input = input('[r]ock [p]aper [s]cissors?: ').lower()
 
             if player_input != 'r' and player_input != 'p' and player_input != 's':
-                print('\nThat is invalid input!\n')
+                print(f'{Fore.RED}\nThat is invalid input!\n')
                 continue
 
             result = self.result(player_input, opposition_input)
 
             print('')
             if result == 'player':
-                print('{} beats {}, congrats!'.format(self.prettify(player_input), self.prettify(opposition_input)))
+                print(f'{Fore.BLUE}{self.prettify(player_input)} {Fore.WHITE}beats {Fore.RED}{self.prettify(opposition_input)}{Fore.WHITE}, {Fore.GREEN}congrats you won!')
                 self.win()
                 break
             elif result == 'opposition':
-                print('{} can\'t beat {}, you lost!'.format(self.prettify(player_input), self.prettify(opposition_input)))
+                print(f'{Fore.BLUE}{self.prettify(player_input)} {Fore.WHITE}can\'t beat {Fore.RED}{self.prettify(opposition_input)}{Fore.WHITE}, {Fore.RED}you lost!')
                 self.lose()
                 break
             else:
-                print('{} can\'t beat itself. It\'s a tie, try again!'.format(self.prettify(player_input)))
+                print(f'{Fore.BLUE}{self.prettify(player_input)} {Fore.WHITE}can\'t beat itself. It\'s a tie, try again!'.format(self.prettify(player_input)))
             print('')
             
 if __name__ == '__main__':
