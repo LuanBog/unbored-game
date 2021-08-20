@@ -108,8 +108,6 @@ class Hangman(Game):
 
         word = custom_split(word.strip())
 
-        print(word)
-
         result = ''
 
         for index, lett in enumerate(word):
