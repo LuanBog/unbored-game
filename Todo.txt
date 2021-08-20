@@ -1,7 +1,7 @@
 [/] Add categories to Hangman
 [] Add colors
-  [] Menus
+  [/] Menus
+  [/] Rock paper scissors
   [] Tictactoe
   [] Hangman
-  [] Rock paper scissors
 [] Ctrl + C backs instead of stopping the whole application
