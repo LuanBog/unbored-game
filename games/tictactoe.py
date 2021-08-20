@@ -2,8 +2,12 @@ from game import Game
 import time
 import sys
 import random
+import colorama
+from colorama import Fore
 
-sys.path.insert(1, './games')
+colorama.init(autoreset=True)
+
+sys.path.insert(1, '../')
 
 from form import Form
 
@@ -27,6 +31,8 @@ class Tictactoe(Game):
         self.against_bot = False
 
     def display_board(self, show_index = False):
+        # Hell nah I ain't gonna try to add color to this yet lmao
+
         if show_index:
             print('{} | {} | {}'.format(self.board[0] if self.board[0] != ' ' else '1', self.board[1] if self.board[1] != ' ' else '2', self.board[2] if self.board[2] != ' ' else '3'))
             print('--+---+--')
@@ -108,11 +114,11 @@ class Tictactoe(Game):
                         if player.name == opposing_player_menu_input['choice']:
                             self.opposing_player = player
 
-                    print('\nPlaying against {}\n'.format(self.opposing_player.name))
+                    print(f'\nPlaying against {Fore.RED}{self.opposing_player.name}\n')
 
                     selected = True
                 else:
-                    print('\nPlaying against a bot\n')
+                    print(f'\nPlaying against a {Fore.RED}bot\n')
 
                     self.against_bot = True
                     selected = True
@@ -125,16 +131,16 @@ class Tictactoe(Game):
                 print('\nBot is making a move...\n')
                 cell = self.find_best_cell()
             else:
-                print('\n{} ({})\'s turn'.format(self.turn['player'].name, self.turn['letter']))
+                print('\n{}{} ({})\'s turn'.format(Fore.BLUE if self.turn['player'].name == self.player.name else Fore.RED, self.turn['player'].name, self.turn['letter']))
                 cell = int(input('Which cell do you want to choose: ')) - 1
 
             if cell < 0 or cell > len(self.board):
-                print('\nThat is not a cell!\n')
+                print(f'\n{Fore.RED}That is not a cell!\n')
                 time.sleep(1)
                 continue
 
             if self.board[cell] != ' ':
-                print('\nThat cell is already taken. Pick another!\n')
+                print(f'\n{Fore.RED}That cell is already taken. Pick another!\n')
                 time.sleep(1)
                 continue
 
@@ -143,8 +149,8 @@ class Tictactoe(Game):
 
             if is_winner and self.turn['letter'] == 'X':
                 self.display_board()
-                print('\n{} (X) won! {} (O) lost...'.format(self.player.name, self.opposing_player.name if self.opposing_player else 'Bot'))
-                
+                print(f'\n{Fore.BLUE}{self.player.name} (X){Fore.WHITE} won! ' + '{}{} (O){} lost...'.format(Fore.RED, self.opposing_player.name if self.opposing_player else 'Bot', Fore.WHITE))
+
                 if self.opposing_player:
                     self.opposing_player.score['loses'] += 1
 
@@ -152,7 +158,7 @@ class Tictactoe(Game):
                 break
             elif is_winner and self.turn['letter'] == 'O':
                 self.display_board()
-                print('\n{} (O) won! {} (X) lost...'.format(self.opposing_player.name if self.opposing_player else 'Bot', self.player.name))
+                print('\n{}{} (O){} won! '.format(Fore.RED, self.opposing_player.name if self.opposing_player else 'Bot', Fore.WHITE) + f'{Fore.BLUE}{self.player.name} (X){Fore.WHITE} lost...')
                 
                 if self.opposing_player:
                     self.opposing_player.score['wins'] += 1
@@ -161,7 +167,7 @@ class Tictactoe(Game):
                 break
             elif not is_winner and ' ' not in self.board:
                 self.display_board()
-                print('\nIt\'s a tie!')
+                print(f'{Fore.YELLOW}\nIt\'s a tie!')
                 self.running = False
                 break
 
@@ -185,5 +191,5 @@ class Tictactoe(Game):
                 }
 
 if __name__ == '__main__':
-    game = Tictactoe(None)
+    game = Tictactoe(None, None)
     game.run()
