@@ -19,147 +19,163 @@ players = [] # Guest will automatically added here with load_save()
 def play():
     global guest, current_player
 
-    games_title = [game.title for game in games]
-    games_title.append('Random')
-    games_title.append('Back')
+    try:
+        games_title = [game.title for game in games]
+        games_title.append('Random')
+        games_title.append('Back')
 
-    print('')
-    print('Wins: {}, Loses: {}'.format(current_player.score['wins'], current_player.score['loses']))
+        print('')
+        print('Wins: {}, Loses: {}'.format(current_player.score['wins'], current_player.score['loses']))
 
-    game_menu = Form('Games', games_title)
-    game_menu_input = game_menu.ask()
+        game_menu = Form('Games', games_title)
+        game_menu_input = game_menu.ask()
 
-    game_chosen = None
+        game_chosen = None
 
-    if game_menu_input['choice'] == 'Random':
-        game_chosen = random.choice(games)
-    elif game_menu_input['choice'] == 'Back':
-        return
-    else:
-        game_chosen = games[game_menu_input['index'] - 1]
+        if game_menu_input['choice'] == 'Random':
+            game_chosen = random.choice(games)
+        elif game_menu_input['choice'] == 'Back':
+            return
+        else:
+            game_chosen = games[game_menu_input['index'] - 1]
 
-    game = None
+        game = None
 
-    if game_chosen.title == 'Tic-Tac-Toe':
-        game = game_chosen(current_player, players)
-    else:
-        game = game_chosen(current_player)
+        if game_chosen.title == 'Tic-Tac-Toe':
+            game = game_chosen(current_player, players)
+        else:
+            game = game_chosen(current_player)
 
-    print('')
-    print('----------{}----------'.format(game.title))
-    print('')
-    game.run()
-    print('')
-    print('----------' + '-' * len(game.title) + '----------')
-    print('')
+        print('')
+        print('----------{}----------'.format(game.title))
+        print('')
+        game.run()
+        print('')
+        print('----------' + '-' * len(game.title) + '----------')
+        print('')
 
-    time.sleep(2)
+        time.sleep(2)
 
-    if game.won:
-        print('Wow you won, GG\'s!\n')
-    else:
-        print('You lost, but you did your best\n')
+        if game.won:
+            print('Wow you won, GG\'s!\n')
+        else:
+            print('You lost, but you did your best\n')
 
-    time.sleep(2)
+        time.sleep(2)
+    except KeyboardInterrupt:
+        print('\nExiting...')
+        time.sleep(0.5)
 
 def create_player():
     global current_player, players
 
-    def repeated(name):
-        for player in players:
-            if player.name == name:
-                return True
-        
-        return False
+    try:
+        def repeated(name):
+            for player in players:
+                if player.name == name:
+                    return True
+            
+            return False
 
-    print('')
-    print('----------Player Creation----------')
+        print('')
+        print('----------Player Creation----------')
 
-    while True:
-        name = input('Name: ')
+        while True:
+            name = input('Name: ')
 
-        # Checks so name doesn't get repeated
-        if repeated(name):
-            print('That name unfortunately exists already. Please choose another!')
-            continue
+            # Checks so name doesn't get repeated
+            if repeated(name):
+                print('That name unfortunately exists already. Please choose another!')
+                continue
 
-        print('Creating...')
+            print('Creating...')
 
-        new_player = Player(name)
+            new_player = Player(name)
 
-        current_player = new_player
-        players.append(new_player)
+            current_player = new_player
+            players.append(new_player)
 
-        save_save(log=False)
+            save_save(log=False)
 
-        print('-----------------------------------')
-        
-        break
+            print('-----------------------------------')
+            
+            break
+    except KeyboardInterrupt:
+        print('\nExiting...')
+        time.sleep(0.5)
 
 def switch_player():
     global current_player
 
-    choices = []
+    try:
+        choices = []
 
-    for player in players:
-        choices.append(player.name)
+        for player in players:
+            choices.append(player.name)
 
-    choices.append('Back')
+        choices.append('Back')
 
-    switch_player_menu = Form('Switch Player', choices)
-    switch_player_menu_input = switch_player_menu.ask()
+        switch_player_menu = Form('Switch Player', choices)
+        switch_player_menu_input = switch_player_menu.ask()
 
-    if switch_player_menu_input['choice'] == 'Back':
-        print('')
-        return
+        if switch_player_menu_input['choice'] == 'Back':
+            print('')
+            return
 
-    player_chosen = None
+        player_chosen = None
 
-    for player in players:
-        if player.name == switch_player_menu_input['choice']:
-            player_chosen = player
-            break
+        for player in players:
+            if player.name == switch_player_menu_input['choice']:
+                player_chosen = player
+                break
 
-    current_player = player_chosen
-    print('Switched to {}\n'.format(current_player.name))
+        current_player = player_chosen
+        print('Switched to {}\n'.format(current_player.name))
 
-    time.sleep(0.5)
+        time.sleep(0.5)
+    except KeyboardInterrupt:
+        print('\nExiting...')
+        time.sleep(0.5)
 
 def delete_player():
     global players, current_player
 
-    choices = []
+    try:
+        choices = []
 
-    for player in players:
-        if player.name == 'Guest':
-            continue
+        for player in players:
+            if player.name == 'Guest':
+                continue
 
-        choices.append(player.name)
+            choices.append(player.name)
 
-    choices.append('Back')
+        choices.append('Back')
 
-    delete_player_menu = Form('Delete Player', choices)
-    delete_player_menu_input = delete_player_menu.ask()
+        delete_player_menu = Form('Delete Player', choices)
+        delete_player_menu_input = delete_player_menu.ask()
 
-    if delete_player_menu_input['choice'] == 'Back':
-        print('')
-        return
+        if delete_player_menu_input['choice'] == 'Back':
+            print('')
+            return
 
-    for player in players:
-        if player.name == delete_player_menu_input['choice']:
-            are_you_sure = input('Are you sure you want to delete "{}". All progress will be lost! (y/n): '.format(player.name)).lower()
+        for player in players:
+            if player.name == delete_player_menu_input['choice']:
+                are_you_sure = input('Are you sure you want to delete "{}". All progress will be lost! (y/n): '.format(player.name)).lower()
 
-            if are_you_sure == 'y' or are_you_sure == 'yes':
-                print('Deleting player...\n')
-                players.remove(player)
+                if are_you_sure == 'y' or are_you_sure == 'yes':
+                    print('Deleting player...\n')
+                    players.remove(player)
 
-                current_player = guest
+                    current_player = guest
 
-                break
+                    break
 
-    save_save(log=False)
+        save_save(log=False)
 
-    time.sleep(0.5)
+        time.sleep(0.5)
+    except KeyboardInterrupt:
+        print('\nExiting...')
+        time.sleep(0.5)
 
 def quit():
     global running
@@ -205,10 +221,10 @@ def load_save():
 def main():
     global running
 
-    print(f'\nAre you {Fore.RED}bored{Fore.WHITE} and {Fore.GREEN}ready to play{Fore.WHITE}?')
-    time.sleep(2)
-    print(f'\nI welcome you to {Fore.BLUE}Un{Fore.RED}bored Game{Fore.WHITE}!\nA game that makes you {Fore.BLUE}un{Fore.RED}bored\n')
-    time.sleep(2)
+    # print(f'\nAre you {Fore.RED}bored{Fore.WHITE} and {Fore.GREEN}ready to play{Fore.WHITE}?')
+    # time.sleep(2)
+    # print(f'\nI welcome you to {Fore.BLUE}Un{Fore.RED}bored Game{Fore.WHITE}!\nA game that makes you {Fore.BLUE}un{Fore.RED}bored\n')
+    # time.sleep(2)
     
     while running:
         print('Player: {}'.format(current_player.name))
@@ -226,11 +242,15 @@ def main():
         elif index == 4:
             delete_player()
         elif index == 5:
-            print('\nThis is a game that makes you unbored.')
-            print('Reason why this is made is because the developer was bored')
-            print('because of no wifi.\n')
-            
-            time.sleep(4)
+            try:
+                print('\nThis is a game that makes you unbored.')
+                print('Reason why this is made is because the developer was bored')
+                print('because of no wifi.\n')
+                
+                time.sleep(4)
+            except KeyboardInterrupt:
+                print('\nExiting...')
+                time.sleep(0.5)
         elif index == 6:
             quit()
         else:
