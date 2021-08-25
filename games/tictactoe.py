@@ -105,8 +105,6 @@ class Tictactoe(Game):
                         if player.name != self.player.name:
                             choices.append(player.name)
 
-                        pass
-
                     choices.append('Play against bot')
 
                     opposing_player_menu = Form('Choose opposing player', choices)
