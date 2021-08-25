@@ -104,8 +104,8 @@ class Tictactoe(Game):
                     for player in self.players:
                         if player.name == 'Guest' or player.name == self.player.name:
                             continue
-
-                    choices.append(player.name)
+                        
+                        choices.append(player.name)
 
                     opposing_player_menu = Form('Choose opposing player', choices)
                     opposing_player_menu_input = opposing_player_menu.ask()
