@@ -107,14 +107,21 @@ class Tictactoe(Game):
                         
                         choices.append(player.name)
 
+                    choices.append('Play against bot')
+
                     opposing_player_menu = Form('Choose opposing player', choices)
                     opposing_player_menu_input = opposing_player_menu.ask()
 
-                    for player in self.players:
-                        if player.name == opposing_player_menu_input['choice']:
-                            self.opposing_player = player
+                    if opposing_player_menu_input['choice'] != 'Play against bot':
+                        for player in self.players:
+                            if player.name == opposing_player_menu_input['choice']:
+                                self.opposing_player = player
 
-                    print(f'\nPlaying against {Fore.RED}{self.opposing_player.name}\n')
+                        print(f'\nPlaying against {Fore.RED}{self.opposing_player.name}\n')
+                    else:
+                        print(f'\nPlaying against a {Fore.RED}bot\n')
+
+                        self.against_bot = True
 
                     selected = True
                 else:
