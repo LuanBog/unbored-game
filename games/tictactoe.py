@@ -102,10 +102,10 @@ class Tictactoe(Game):
                     choices = []
 
                     for player in self.players:
-                        if player.name == 'Guest' or player.name == self.player.name:
-                            continue
-                        
-                        choices.append(player.name)
+                        if player.name != self.player.name:
+                            choices.append(player.name)
+
+                        pass
 
                     choices.append('Play against bot')
 
